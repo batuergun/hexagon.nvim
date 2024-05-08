@@ -606,6 +606,8 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+require('lspconfig').tailwindcss.setup {}
+
 -- require('lspconfig').relay_lsp.setup {
 --   capabilities = capabilities,
 --   on_attach = on_attach,
