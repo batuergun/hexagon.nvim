@@ -580,6 +580,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  clangd = {},
 }
 
 -- Setup neovim lua configuration
