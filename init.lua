@@ -90,7 +90,8 @@ require('lazy').setup {
         vim.keymap.set('n', '[c', require('gitsigns').prev_hunk, { buffer = bufnr, desc = 'Go to Previous Hunk' })
         vim.keymap.set('n', ']c', require('gitsigns').next_hunk, { buffer = bufnr, desc = 'Go to Next Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-        vim.keymap.set('n', '<leader>gv', require('gitsigns').select_hunk, { buffer = bufnr, desc = 'Git [V]isually select hunk' })
+        vim.keymap.set('n', '<leader>gv', require('gitsigns').select_hunk,
+          { buffer = bufnr, desc = 'Git [V]isually select hunk' })
       end,
     },
   },
@@ -183,7 +184,7 @@ require('lazy').setup {
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -580,7 +581,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  clangd = {},
+  clangd = { format = { enable = false }, },
 }
 
 -- Setup neovim lua configuration
@@ -607,6 +608,14 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+require('lspconfig').clangd.setup {
+  on_attach = function(client, bufnr)
+    -- Disable formatting capability for clangd
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
+}
+
 require('lspconfig').tailwindcss.setup {}
 
 -- require('lspconfig').relay_lsp.setup {
@@ -620,3 +629,7 @@ require('lspconfig').tailwindcss.setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.cmd [[
+autocmd FileType c,h setlocal noexpandtab tabstop=4 shiftwidth=4
+]]
