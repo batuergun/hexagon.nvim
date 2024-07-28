@@ -74,17 +74,17 @@ require('lazy').setup {
     opts = {},
   },
   {
-    -- Adds git releated signs to the gutter, as well as utilities for managing changes
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
-        add = { hl = 'GitSignsAdd', text = '·', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-        change = { hl = 'GitSignsChange', text = '·', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-        delete = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-        topdelete = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-        changedelete = { hl = 'GitSignsChange', text = '·~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-        untracked = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+        add = { text = '·' },
+        change = { text = '·' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '·~' },
+        untracked = { text = '│' },
       },
       on_attach = function(bufnr)
         vim.keymap.set('n', '[c', require('gitsigns').prev_hunk, { buffer = bufnr, desc = 'Go to Previous Hunk' })
@@ -629,6 +629,20 @@ require('lspconfig').tailwindcss.setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+-- Define new highlight groups to replace deprecated ones
+vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'GitSignsAddLn', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'GitSignsAddNr', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangeLn', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangedeleteLn', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { link = 'DiffDelete' })
 
 vim.cmd [[
 autocmd FileType c,h setlocal noexpandtab tabstop=4 shiftwidth=4
