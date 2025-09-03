@@ -304,10 +304,10 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.cmd [[set expandtab]]
-vim.bo.tabstop = 2
-vim.bo.shiftwidth = 2
-vim.cmd 'set ts=2'
-vim.cmd 'set sw=2'
+vim.bo.tabstop = 4
+vim.bo.shiftwidth = 4
+vim.cmd 'set ts=4'
+vim.cmd 'set sw=4'
 vim.o.shiftround = true
 vim.cmd [[autocmd BufNewFile,BufReadPost *.js,*.ts,*.tsx setl colorcolumn=80,100,120]]
 
