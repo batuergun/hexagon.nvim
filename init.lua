@@ -609,7 +609,24 @@ mason_lspconfig.setup_handlers {
 }
 
 require('lspconfig').clangd.setup {
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed",
+    "--function-arg-placeholders",
+    "--fallback-style=llvm",
+  },
+  init_options = {
+    usePlaceholders = true,
+    completeUnimported = true,
+    clangdFileStatus = true,
+  },
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
+    -- Call the original on_attach function
+    on_attach(client, bufnr)
     -- Disable formatting capability for clangd
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
